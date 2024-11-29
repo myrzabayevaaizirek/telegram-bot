@@ -3,23 +3,28 @@ name: Run Telegram Bot
 on:
   push:
     branches:
-      - main
+      - main  # Workflow запускается при пуше в ветку main
 
 jobs:
   run-bot:
-    runs-on: ubuntu-latest
-    timeout-minutes: 60  # Ограничение на выполнение в 60 минут
+    runs-on: ubuntu-latest  # Указывает, какой runner будет использоваться
+    timeout-minutes: 60  # Ограничение времени выполнения до 60 минут
     steps:
+      # 1. Проверить исходный код
       - name: Checkout code
         uses: actions/checkout@v3
+        run: echo "Code successfully checked out"
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
+      # 2. Установить зависимости (например, для Python)
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          echo "Installing dependencies..."
+          pip install -r requirements.txt
+          echo "Dependencies installed"
 
-      - name: Run the bot
-        run: python your_script.py
+      # 3. Запустить ваш Telegram Bot
+      - name: Run Telegram Bot
+        run: |
+          echo "Starting the bot..."
+          python your_script.py  # Замените your_script.py на имя вашего файла
+          echo "Bot finished execution"
